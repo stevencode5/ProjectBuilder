@@ -1,0 +1,25 @@
+html, body {
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+.ui-expanded-widget-all,
+.ui-expanded-widget-horizontal {
+    width: 100% !important;
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+}
+.ui-expanded-widget-all,
+.ui-expanded-widget-vertical {
+    height: 100% !important;
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+}
+
+.ui-picklist-list {
+	height:380px !important;
+	width:400px !important;
+}

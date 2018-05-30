@@ -1,0 +1,601 @@
+/*
+ * Variable Grid System (Fluid Version).
+ * Learn more ~ http://www.spry-soft.com/grids/
+ * Based on 960 Grid System - http://960.gs/ & 960 Fluid - http://www.designinfluences.com/
+ *
+ * Licensed under GPL and MIT.
+ */
+
+/*
+ * Grid properties.
+ *
+ * width: Fluid
+ * columns: 24
+ * column width: 3,167%
+ * column gap: 1%
+ */
+
+/* Containers
+----------------------------------------------------------------------------------------------------*/
+.fl_container_24 {
+	width: 100%;
+}
+
+/* Grid >> Global
+----------------------------------------------------------------------------------------------------*/
+
+.fl_grid_1,
+.fl_grid_2,
+.fl_grid_3,
+.fl_grid_4,
+.fl_grid_5,
+.fl_grid_6,
+.fl_grid_7,
+.fl_grid_8,
+.fl_grid_9,
+.fl_grid_10,
+.fl_grid_11,
+.fl_grid_12,
+.fl_grid_13,
+.fl_grid_14,
+.fl_grid_15,
+.fl_grid_16,
+.fl_grid_17,
+.fl_grid_18,
+.fl_grid_19,
+.fl_grid_20,
+.fl_grid_21,
+.fl_grid_22,
+.fl_grid_23,
+.fl_grid_24 {
+	display:inline;
+	float: left;
+	position: relative;
+	margin-left: 0.5%;
+	margin-right: 0.5%;
+}
+
+/* Grid >> Children (Alpha ~ First, Omega ~ Last)
+----------------------------------------------------------------------------------------------------*/
+
+.fl_alpha {
+	margin-left: 0;
+}
+
+.fl_omega {
+	margin-right: 0;
+}
+
+/* Grid >> 24 Columns
+----------------------------------------------------------------------------------------------------*/
+
+
+.fl_container_24 .fl_grid_1 {
+	width:3.167%;
+}
+
+.fl_container_24 .fl_grid_2 {
+	width:7.333%;
+}
+
+.fl_container_24 .fl_grid_3 {
+	width:11.5%;
+}
+
+.fl_container_24 .fl_grid_4 {
+	width:15.667%;
+}
+
+.fl_container_24 .fl_grid_5 {
+	width:19.833%;
+}
+
+.fl_container_24 .fl_grid_6 {
+	width:24.0%;
+}
+
+.fl_container_24 .fl_grid_7 {
+	width:28.167%;
+}
+
+.fl_container_24 .fl_grid_8 {
+	width:32.333%;
+}
+
+.fl_container_24 .fl_grid_9 {
+	width:36.5%;
+}
+
+.fl_container_24 .fl_grid_10 {
+	width:40.667%;
+}
+
+.fl_container_24 .fl_grid_11 {
+	width:44.833%;
+}
+
+.fl_container_24 .fl_grid_12 {
+	width:49.0%;
+}
+
+.fl_container_24 .fl_grid_13 {
+	width:53.167%;
+}
+
+.fl_container_24 .fl_grid_14 {
+	width:57.333%;
+}
+
+.fl_container_24 .fl_grid_15 {
+	width:61.5%;
+}
+
+.fl_container_24 .fl_grid_16 {
+	width:65.667%;
+}
+
+.fl_container_24 .fl_grid_17 {
+	width:69.833%;
+}
+
+.fl_container_24 .fl_grid_18 {
+	width:74.0%;
+}
+
+.fl_container_24 .fl_grid_19 {
+	width:78.167%;
+}
+
+.fl_container_24 .fl_grid_20 {
+	width:82.333%;
+}
+
+.fl_container_24 .fl_grid_21 {
+	width:86.5%;
+}
+
+.fl_container_24 .fl_grid_22 {
+	width:90.667%;
+}
+
+.fl_container_24 .fl_grid_23 {
+	width:94.833%;
+}
+
+.fl_container_24 .fl_grid_24 {
+	width:99.0%;
+}
+
+
+
+/* Prefix Extra Space >> 24 Columns
+----------------------------------------------------------------------------------------------------*/
+
+
+.fl_container_24 .fl_prefix_1 {
+	padding-left:4.167%;
+}
+
+.fl_container_24 .fl_prefix_2 {
+	padding-left:8.333%;
+}
+
+.fl_container_24 .fl_prefix_3 {
+	padding-left:12.5%;
+}
+
+.fl_container_24 .fl_prefix_4 {
+	padding-left:16.667%;
+}
+
+.fl_container_24 .fl_prefix_5 {
+	padding-left:20.833%;
+}
+
+.fl_container_24 .fl_prefix_6 {
+	padding-left:25.0%;
+}
+
+.fl_container_24 .fl_prefix_7 {
+	padding-left:29.167%;
+}
+
+.fl_container_24 .fl_prefix_8 {
+	padding-left:33.333%;
+}
+
+.fl_container_24 .fl_prefix_9 {
+	padding-left:37.5%;
+}
+
+.fl_container_24 .fl_prefix_10 {
+	padding-left:41.667%;
+}
+
+.fl_container_24 .fl_prefix_11 {
+	padding-left:45.833%;
+}
+
+.fl_container_24 .fl_prefix_12 {
+	padding-left:50.0%;
+}
+
+.fl_container_24 .fl_prefix_13 {
+	padding-left:54.167%;
+}
+
+.fl_container_24 .fl_prefix_14 {
+	padding-left:58.333%;
+}
+
+.fl_container_24 .fl_prefix_15 {
+	padding-left:62.5%;
+}
+
+.fl_container_24 .fl_prefix_16 {
+	padding-left:66.667%;
+}
+
+.fl_container_24 .fl_prefix_17 {
+	padding-left:70.833%;
+}
+
+.fl_container_24 .fl_prefix_18 {
+	padding-left:75.0%;
+}
+
+.fl_container_24 .fl_prefix_19 {
+	padding-left:79.167%;
+}
+
+.fl_container_24 .fl_prefix_20 {
+	padding-left:83.333%;
+}
+
+.fl_container_24 .fl_prefix_21 {
+	padding-left:87.5%;
+}
+
+.fl_container_24 .fl_prefix_22 {
+	padding-left:91.667%;
+}
+
+.fl_container_24 .fl_prefix_23 {
+	padding-left:95.833%;
+}
+
+
+
+/* Suffix Extra Space >> 24 Columns
+----------------------------------------------------------------------------------------------------*/
+
+
+.fl_container_24 .fl_suffix_1 {
+	padding-right:4.167%;
+}
+
+.fl_container_24 .fl_suffix_2 {
+	padding-right:8.333%;
+}
+
+.fl_container_24 .fl_suffix_3 {
+	padding-right:12.5%;
+}
+
+.fl_container_24 .fl_suffix_4 {
+	padding-right:16.667%;
+}
+
+.fl_container_24 .fl_suffix_5 {
+	padding-right:20.833%;
+}
+
+.fl_container_24 .fl_suffix_6 {
+	padding-right:25.0%;
+}
+
+.fl_container_24 .fl_suffix_7 {
+	padding-right:29.167%;
+}
+
+.fl_container_24 .fl_suffix_8 {
+	padding-right:33.333%;
+}
+
+.fl_container_24 .fl_suffix_9 {
+	padding-right:37.5%;
+}
+
+.fl_container_24 .fl_suffix_10 {
+	padding-right:41.667%;
+}
+
+.fl_container_24 .fl_suffix_11 {
+	padding-right:45.833%;
+}
+
+.fl_container_24 .fl_suffix_12 {
+	padding-right:50.0%;
+}
+
+.fl_container_24 .fl_suffix_13 {
+	padding-right:54.167%;
+}
+
+.fl_container_24 .fl_suffix_14 {
+	padding-right:58.333%;
+}
+
+.fl_container_24 .fl_suffix_15 {
+	padding-right:62.5%;
+}
+
+.fl_container_24 .fl_suffix_16 {
+	padding-right:66.667%;
+}
+
+.fl_container_24 .fl_suffix_17 {
+	padding-right:70.833%;
+}
+
+.fl_container_24 .fl_suffix_18 {
+	padding-right:75.0%;
+}
+
+.fl_container_24 .fl_suffix_19 {
+	padding-right:79.167%;
+}
+
+.fl_container_24 .fl_suffix_20 {
+	padding-right:83.333%;
+}
+
+.fl_container_24 .fl_suffix_21 {
+	padding-right:87.5%;
+}
+
+.fl_container_24 .fl_suffix_22 {
+	padding-right:91.667%;
+}
+
+.fl_container_24 .fl_suffix_23 {
+	padding-right:95.833%;
+}
+
+
+
+/* Push Space >> 24 Columns
+----------------------------------------------------------------------------------------------------*/
+
+
+.fl_container_24 .fl_push_1 {
+	left:4.167%;
+}
+
+.fl_container_24 .fl_push_2 {
+	left:8.333%;
+}
+
+.fl_container_24 .fl_push_3 {
+	left:12.5%;
+}
+
+.fl_container_24 .fl_push_4 {
+	left:16.667%;
+}
+
+.fl_container_24 .fl_push_5 {
+	left:20.833%;
+}
+
+.fl_container_24 .fl_push_6 {
+	left:25.0%;
+}
+
+.fl_container_24 .fl_push_7 {
+	left:29.167%;
+}
+
+.fl_container_24 .fl_push_8 {
+	left:33.333%;
+}
+
+.fl_container_24 .fl_push_9 {
+	left:37.5%;
+}
+
+.fl_container_24 .fl_push_10 {
+	left:41.667%;
+}
+
+.fl_container_24 .fl_push_11 {
+	left:45.833%;
+}
+
+.fl_container_24 .fl_push_12 {
+	left:50.0%;
+}
+
+.fl_container_24 .fl_push_13 {
+	left:54.167%;
+}
+
+.fl_container_24 .fl_push_14 {
+	left:58.333%;
+}
+
+.fl_container_24 .fl_push_15 {
+	left:62.5%;
+}
+
+.fl_container_24 .fl_push_16 {
+	left:66.667%;
+}
+
+.fl_container_24 .fl_push_17 {
+	left:70.833%;
+}
+
+.fl_container_24 .fl_push_18 {
+	left:75.0%;
+}
+
+.fl_container_24 .fl_push_19 {
+	left:79.167%;
+}
+
+.fl_container_24 .fl_push_20 {
+	left:83.333%;
+}
+
+.fl_container_24 .fl_push_21 {
+	left:87.5%;
+}
+
+.fl_container_24 .fl_push_22 {
+	left:91.667%;
+}
+
+.fl_container_24 .fl_push_23 {
+	left:95.833%;
+}
+
+
+
+/* Pull Space >> 24 Columns
+----------------------------------------------------------------------------------------------------*/
+
+
+.fl_container_24 .fl_pull_1 {
+	left:-4.167%;
+}
+
+.fl_container_24 .fl_pull_2 {
+	left:-8.333%;
+}
+
+.fl_container_24 .fl_pull_3 {
+	left:-12.5%;
+}
+
+.fl_container_24 .fl_pull_4 {
+	left:-16.667%;
+}
+
+.fl_container_24 .fl_pull_5 {
+	left:-20.833%;
+}
+
+.fl_container_24 .fl_pull_6 {
+	left:-25.0%;
+}
+
+.fl_container_24 .fl_pull_7 {
+	left:-29.167%;
+}
+
+.fl_container_24 .fl_pull_8 {
+	left:-33.333%;
+}
+
+.fl_container_24 .fl_pull_9 {
+	left:-37.5%;
+}
+
+.fl_container_24 .fl_pull_10 {
+	left:-41.667%;
+}
+
+.fl_container_24 .fl_pull_11 {
+	left:-45.833%;
+}
+
+.fl_container_24 .fl_pull_12 {
+	left:-50.0%;
+}
+
+.fl_container_24 .fl_pull_13 {
+	left:-54.167%;
+}
+
+.fl_container_24 .fl_pull_14 {
+	left:-58.333%;
+}
+
+.fl_container_24 .fl_pull_15 {
+	left:-62.5%;
+}
+
+.fl_container_24 .fl_pull_16 {
+	left:-66.667%;
+}
+
+.fl_container_24 .fl_pull_17 {
+	left:-70.833%;
+}
+
+.fl_container_24 .fl_pull_18 {
+	left:-75.0%;
+}
+
+.fl_container_24 .fl_pull_19 {
+	left:-79.167%;
+}
+
+.fl_container_24 .fl_pull_20 {
+	left:-83.333%;
+}
+
+.fl_container_24 .fl_pull_21 {
+	left:-87.5%;
+}
+
+.fl_container_24 .fl_pull_22 {
+	left:-91.667%;
+}
+
+.fl_container_24 .fl_pull_23 {
+	left:-95.833%;
+}
+
+
+
+
+/* Clear Floated Elements
+----------------------------------------------------------------------------------------------------*/
+
+/* http://sonspring.com/journal/clearing-floats */
+
+.fl_clear {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+/* http://perishablepress.com/press/2008/02/05/lessons-learned-concerning-the-clearfix-css-hack */
+
+.fl_clearfix:after {
+	clear: both;
+	content: ' ';
+	display: block;
+	font-size: 0;
+	line-height: 0;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+.fl_clearfix {
+	display: inline-block;
+}
+
+* html .fl_clearfix {
+	height: 1%;
+}
+
+.fl_clearfix {
+	display: block;
+}

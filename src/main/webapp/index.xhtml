@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Project Builder</title>         
+        <h:outputStylesheet library="css" name="960gs/960.css"/>
+        <h:outputStylesheet library="css" name="960gs/960fluid.css"/>       
+        <h:outputStylesheet library="css" name="general.css"/>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <p:growl id="msg" showDetail="true" escape="false" />
+
+            <h2 align="center">Foo</h2>
+
+            <h:panelGroup id="pnlDirectorioRaiz" layout="block"  styleClass="fl_container_24" >                
+                <h:panelGroup layout="block" styleClass="fl_grid_16 fl_prefix_1">
+                    <p:inputText value="#{projectBuilder.directorioRaiz}" styleClass="ui-expanded-widget-horizontal" />     
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="fl_grid_4 fl_prefix_2 fl_suffix_1">
+                    <p:commandButton value="Cargar" id="btonCargar" actionListener="#{projectBuilder.cargarModulos}" update="pnlModulos" styleClass="ui-priority-primary" />
+                </h:panelGroup>
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="fl_clear"/>
+            <p:spacer height="10"/>
+            <h:panelGroup id="pnlModulos" layout="block"  styleClass="fl_container_24" >  
+                <h:panelGroup layout="block" styleClass="fl_grid_20 fl_prefix_2 fl_suffix_2">
+                    <p:pickList id="pickList" value="#{projectBuilder.modulos}" var="modulos" itemLabel="#{modulos}" itemValue="#{modulos}" styleClass="ui-expanded-widget-horizontal" />
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:form>
+    </h:body>
+</html>
