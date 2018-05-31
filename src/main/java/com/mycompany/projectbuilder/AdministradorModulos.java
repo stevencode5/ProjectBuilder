@@ -112,25 +112,25 @@ public class AdministradorModulos {
 
     private void eliminarDePomRaiz(String modulo, String directorioRaiz) {
         File pom = new File(directorioRaiz + "/pom.xml");
-        eliminarModuloArchivo(pom, modulo, "module", 1);
+        eliminarModuloArchivo(pom, modulo, "module", 0);
     }
 
     private void eliminarDePomEar(String modulo, String directorioRaiz) {
         File pomEar = new File(directorioRaiz + "/dist/ear/pom.xml");
         String dependenciaEar = modulo.replace("/", "-");
-        eliminarModuloArchivo(pomEar, dependenciaEar, "artifactId", 2);
+        eliminarModuloArchivo(pomEar, dependenciaEar, "artifactId", 1);
     }
 
     private void eliminarDePomWeb(String modulo, String directorioRaiz) {
         File pomWeb = new File(directorioRaiz + "/core/web/ui/pom.xml");
         String dependenciaWeb = modulo.replace("/", "-");
-        eliminarModuloArchivo(pomWeb, dependenciaWeb, "artifactId", 2);
+        eliminarModuloArchivo(pomWeb, dependenciaWeb, "artifactId", 1);
     }
 
     private void eliminarDePersistence(String modulo, String directorioRaiz) {
         File persistence = new File(directorioRaiz + "/core/persistencia/servicio/src/main/resources/META-INF/persistence.xml");
         String dependenciaPersistence = modulo.replace("/", "-");
-        eliminarModuloArchivo(persistence, dependenciaPersistence, "jar-file", 1);
+        eliminarModuloArchivo(persistence, dependenciaPersistence, "jar-file", 0);
     }
 
     private void eliminarModuloArchivo(File pom, String depedenciaEliminar, String llave, int nivel) {
@@ -151,8 +151,7 @@ public class AdministradorModulos {
         }
     }
 
-    private Node buscarNodoPadre(Node nodo, int nivel) {
-        nivel--;
+    private Node buscarNodoPadre(Node nodo, int nivel) {        
         for (int i = 0; i < nivel; i++) {
             nodo = nodo.getParentNode();
         }
