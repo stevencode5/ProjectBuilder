@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 import org.primefaces.model.DualListModel;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -16,20 +19,32 @@ import org.primefaces.model.DualListModel;
 @ManagedBean
 public class ProjectBuilder implements Serializable {
 
+    private AdministradorModulos administradorModulos;
+    
     private DualListModel<String> modulos;
 
     private String directorioRaiz;
 
     @PostConstruct
     public void init() {
-        directorioRaiz = "";
+        this.directorioRaiz = "/home/shernandez/Desktop/Steven/c4u/";
+        administradorModulos = new AdministradorModulos();
         cargarModulos();
     }
 
     public void cargarModulos() {
-        AdministradorModulos administrador = new AdministradorModulos();
-        List<String> modulosCargados = administrador.cargarModulos(directorioRaiz);
-        modulos = new DualListModel<>(modulosCargados, new ArrayList());
+        List<String> modulosCargados = administradorModulos.cargarModulos(this.directorioRaiz);
+        this.modulos = new DualListModel<>(modulosCargados, new ArrayList());
+    }
+    
+    public void construirModulos(ActionEvent actionEvent) {
+        administradorModulos.construirModulos(this.modulos.getTarget(), this.directorioRaiz);
+        addMessage("Modulos Construidos !!");
+    }
+
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     public DualListModel<String> getModulos() {

@@ -18,18 +18,25 @@
             <h2 align="center">Foo</h2>
 
             <h:panelGroup id="pnlDirectorioRaiz" layout="block"  styleClass="fl_container_24" >                
-                <h:panelGroup layout="block" styleClass="fl_grid_16 fl_prefix_1">
+                <h:panelGroup layout="block" styleClass="fl_prefix_1 fl_grid_16">
                     <p:inputText value="#{projectBuilder.directorioRaiz}" styleClass="ui-expanded-widget-horizontal" />     
                 </h:panelGroup>
-                <h:panelGroup layout="block" styleClass="fl_grid_4 fl_prefix_2 fl_suffix_1">
+                <h:panelGroup layout="block" styleClass="fl_prefix_2 fl_grid_4 fl_suffix_1">
                     <p:commandButton value="Cargar" id="btonCargar" actionListener="#{projectBuilder.cargarModulos}" update="pnlModulos" styleClass="ui-priority-primary" />
                 </h:panelGroup>
             </h:panelGroup>
             <h:panelGroup layout="block" styleClass="fl_clear"/>
             <p:spacer height="10"/>
             <h:panelGroup id="pnlModulos" layout="block"  styleClass="fl_container_24" >  
-                <h:panelGroup layout="block" styleClass="fl_grid_20 fl_prefix_2 fl_suffix_2">
+                <h:panelGroup layout="block" styleClass="fl_prefix_2 fl_grid_20 fl_suffix_2">
                     <p:pickList id="pickList" value="#{projectBuilder.modulos}" var="modulos" itemLabel="#{modulos}" itemValue="#{modulos}" styleClass="ui-expanded-widget-horizontal" />
+                </h:panelGroup>
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="fl_clear"/>
+            <p:spacer height="10"/>
+            <h:panelGroup id="pnlAcciones" layout="block"  styleClass="fl_container_24" >                
+                <h:panelGroup layout="block" styleClass="fl_prefix_17 fl_grid_3 fl_suffix_4">
+                    <p:commandButton value="Construir !" id="btonConstruir" actionListener="#{projectBuilder.construirModulos}" update="msg" styleClass="ui-priority-primary" />
                 </h:panelGroup>
             </h:panelGroup>
         </h:form>
