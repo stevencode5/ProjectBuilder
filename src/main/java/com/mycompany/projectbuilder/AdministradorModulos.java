@@ -29,6 +29,8 @@ public class AdministradorModulos {
 
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Métodos para Consulta de Modulos">
+    
     public List<String> cargarModulos(String directorioRaiz) {
         File directorio = new File(directorioRaiz);
         List<String> nodosRaiz = consultarNodosEnPomRaiz(directorio);
@@ -74,6 +76,8 @@ public class AdministradorModulos {
             return null;
         }
     }
+    
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos para Construir Modulos">
     public void construirModulos(List<String> modulos, String directorioRaiz) {
@@ -83,10 +87,11 @@ public class AdministradorModulos {
         List<String> modulosEar = modulos.stream()
                 .filter(modulo -> modulo.contains(TipoModulo.NEGOCIO.getEtiquetaModulo())
                         || modulo.contains(TipoModulo.PERSISTENCIA.getEtiquetaModulo())
+                        || modulo.contains(TipoModulo.ENTITIES.getEtiquetaModulo())
                         || modulo.contains(TipoModulo.PLUGIN.getEtiquetaModulo()))
                 .collect(Collectors.toList());
         for (String modulo : modulosEar) {
-            eliminarDependenciaPorTipoModulo(modulo, TipoModulo.WEB, directorioRaiz);
+            eliminarDependenciaPorTipoModulo(modulo, TipoModulo.NEGOCIO, directorioRaiz);
         }
         List<String> modulosWeb = modulos.stream()
                 .filter(modulo -> modulo.contains(TipoModulo.WEB.getEtiquetaModulo()))
