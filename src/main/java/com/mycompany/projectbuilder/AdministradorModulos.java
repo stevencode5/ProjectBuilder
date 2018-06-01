@@ -81,30 +81,36 @@ public class AdministradorModulos {
             eliminarDePomRaiz(modulo, directorioRaiz);
         }
         List<String> modulosEar = modulos.stream()
-                .filter(modulo -> modulo.contains("negocio") || modulo.contains("persistencia") || modulo.contains("plugin"))
+                .filter(modulo -> modulo.contains(TipoModulo.NEGOCIO.getEtiquetaModulo())
+                        || modulo.contains(TipoModulo.PERSISTENCIA.getEtiquetaModulo())
+                        || modulo.contains(TipoModulo.PLUGIN.getEtiquetaModulo()))
                 .collect(Collectors.toList());
         for (String modulo : modulosEar) {
-            eliminarDependenciaPorTipoModulo(modulo, "web", directorioRaiz);
+            eliminarDependenciaPorTipoModulo(modulo, TipoModulo.WEB, directorioRaiz);
         }
-        List<String> modulosWeb = modulos.stream().filter(modulo -> modulo.contains("web")).collect(Collectors.toList());
+        List<String> modulosWeb = modulos.stream()
+                .filter(modulo -> modulo.contains(TipoModulo.WEB.getEtiquetaModulo()))
+                .collect(Collectors.toList());
         for (String modulo : modulosWeb) {
-            eliminarDependenciaPorTipoModulo(modulo, "web", directorioRaiz);
+            eliminarDependenciaPorTipoModulo(modulo, TipoModulo.WEB, directorioRaiz);
         }
-        List<String> modulosPersistence = modulos.stream().filter(modulo -> modulo.contains("entities")).collect(Collectors.toList());
+        List<String> modulosPersistence = modulos.stream()
+                .filter(modulo -> modulo.contains(TipoModulo.ENTITIES.getEtiquetaModulo()))
+                .collect(Collectors.toList());
         for (String modulo : modulosPersistence) {
-            eliminarDependenciaPorTipoModulo(modulo, "entities", directorioRaiz);
+            eliminarDependenciaPorTipoModulo(modulo, TipoModulo.ENTITIES, directorioRaiz);
         }
     }
 
-    private void eliminarDependenciaPorTipoModulo(String modulo, String tipoModulo, String directorioRaiz) {
+    private void eliminarDependenciaPorTipoModulo(String modulo, TipoModulo tipoModulo, String directorioRaiz) {
         switch (tipoModulo) {
-            case "negocio":
+            case NEGOCIO:
                 eliminarDePomEar(modulo, directorioRaiz);
                 break;
-            case "web":
+            case WEB:
                 eliminarDePomWeb(modulo, directorioRaiz);
                 break;
-            case "entities":
+            case ENTITIES:
                 eliminarDePersistence(modulo, directorioRaiz);
                 break;
         }
