@@ -29,7 +29,12 @@
             <p:spacer height="10"/>
             <h:panelGroup id="pnlModulos" layout="block"  styleClass="fl_container_24" >  
                 <h:panelGroup layout="block" styleClass="fl_prefix_2 fl_grid_20 fl_suffix_2">
-                    <p:pickList id="pickList" value="#{projectBuilder.modulos}" var="modulos" itemLabel="#{modulos}" itemValue="#{modulos}" styleClass="ui-expanded-widget-horizontal" />
+                    <p:pickList id="pickList" value="#{projectBuilder.modulos}" var="modulos" itemLabel="#{modulos}" 
+                                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" 
+                                itemValue="#{modulos}" >
+                        <f:facet name="sourceCaption">Modulos Disponibles</f:facet>
+                        <f:facet name="targetCaption">Modulos Eliminados</f:facet>
+                    </p:pickList>
                 </h:panelGroup>
             </h:panelGroup>
             <h:panelGroup layout="block" styleClass="fl_clear"/>
