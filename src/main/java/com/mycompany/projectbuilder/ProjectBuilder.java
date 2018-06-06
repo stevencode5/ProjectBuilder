@@ -9,7 +9,7 @@ import org.primefaces.model.DualListModel;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import org.primefaces.event.TransferEvent;
 
 /**
  *
@@ -20,10 +20,14 @@ import javax.faces.event.ActionEvent;
 public class ProjectBuilder implements Serializable {
 
     private AdministradorModulos administradorModulos;
+
+    private List<Modulo> modulos;
     
-    private DualListModel<String> modulos;
+    private DualListModel<Modulo> modulosDual;
 
     private String directorioRaiz;
+
+    private int tabindex;
 
     @PostConstruct
     public void init() {
@@ -33,12 +37,15 @@ public class ProjectBuilder implements Serializable {
     }
 
     public void cargarModulos() {
-        List<String> modulosCargados = administradorModulos.cargarModulos(this.directorioRaiz);
-        this.modulos = new DualListModel<>(modulosCargados, new ArrayList());
+        this.modulos = administradorModulos.cargarModulos(this.directorioRaiz);
+        this.modulosDual = new DualListModel<>(modulos, new ArrayList<Modulo>());
     }
-    
-    public void construirModulos(ActionEvent actionEvent) {
-        administradorModulos.construirModulos(this.modulos.getTarget(), this.directorioRaiz);
+
+    public void construirModulos() {
+        System.out.println(this.modulosDual.getTarget());
+        System.out.println(this.modulosDual.getSource());
+        System.out.println(this.modulos);
+        //administradorModulos.construirModulos(this.modulosDual.getTarget(), this.directorioRaiz);
         addMessage("Modulos Construidos !!");
     }
 
@@ -47,20 +54,54 @@ public class ProjectBuilder implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public DualListModel<String> getModulos() {
+    public void onTransfer(TransferEvent event) {
+        for (Object item : event.getItems()) {
+            System.out.println(item);
+        }
+    }
+
+    public List<Modulo> getModulos() {
         return modulos;
     }
 
-    public void setModulos(DualListModel<String> modulos) {
+    public void setModulos(List<Modulo> modulos) {
         this.modulos = modulos;
     }
 
+    public DualListModel<Modulo> getModulosDual() {
+        return modulosDual;
+    }
+
+    public void setModulosDual(DualListModel<Modulo> modulosDual) {
+        this.modulosDual = modulosDual;
+    }
+    
     public String getDirectorioRaiz() {
         return directorioRaiz;
     }
 
     public void setDirectorioRaiz(String directorioRaiz) {
         this.directorioRaiz = directorioRaiz;
+    }
+
+    public AdministradorModulos getAdministradorModulos() {
+        return administradorModulos;
+    }
+
+    public void setAdministradorModulos(AdministradorModulos administradorModulos) {
+        this.administradorModulos = administradorModulos;
+    }
+
+    public int getTabindex() {
+        return tabindex;
+    }
+
+    public void setTabindex(int tabindex) {
+        this.tabindex = tabindex;
+    }
+
+    public void foo() {
+        System.out.println("Selected Tab  ->  " + this.tabindex);
     }
 
 }

@@ -30,20 +30,10 @@ public class AdministradorModulos {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Métodos para Consulta de Modulos">
-    
-    public List<String> cargarModulos(String directorioRaiz) {
+    public List<Modulo> cargarModulos(String directorioRaiz) {
         File directorio = new File(directorioRaiz);
         List<String> nodosRaiz = consultarNodosEnPomRaiz(directorio);
-        return filtrarNodos(nodosRaiz);
-    }
-
-    private List<String> filtrarNodos(List<String> nodos) {
-        List<String> nodosLimpios = new ArrayList<>();
-        nodos = nodos.stream().filter(nodo -> nodo.contains("modulo")).collect(Collectors.toList());
-        for (String nodo : nodos) {
-            nodosLimpios.add(nodo.replace("modulos/", ""));
-        }
-        return nodosLimpios;
+        return crearModulosPorNombre(nodosRaiz);
     }
 
     private List<String> consultarNodosEnPomRaiz(File directorioRaiz) {
@@ -52,6 +42,14 @@ public class AdministradorModulos {
             return calcularDependencias(pomRaiz);
         }
         return new ArrayList();
+    }
+
+    private List<Modulo> crearModulosPorNombre(List<String> nombresModulos) {
+        List<Modulo> modulosPorNombre = new ArrayList();
+        for (String nombreModulo : nombresModulos) {
+            modulosPorNombre.add(new Modulo(nombreModulo));
+        }
+        return modulosPorNombre;
     }
 
     private List<String> calcularDependencias(File pomRaiz) {
@@ -76,38 +74,41 @@ public class AdministradorModulos {
             return null;
         }
     }
-    
-    // </editor-fold>
 
+    public List<Modulo> consultarNodosDependientes(Modulo modulo) {
+        return null;
+    }
+
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Métodos para Construir Modulos">
-    public void construirModulos(List<String> modulos, String directorioRaiz) {
-        for (String modulo : modulos) {
+    public void construirModulos(List<Modulo> modulos, String directorioRaiz) {
+        for (Modulo modulo : modulos) {
             eliminarDePomRaiz(modulo, directorioRaiz);
         }
-        List<String> modulosEar = modulos.stream()
-                .filter(modulo -> modulo.contains(TipoModulo.NEGOCIO.getEtiquetaModulo())
-                        || modulo.contains(TipoModulo.PERSISTENCIA.getEtiquetaModulo())
-                        || modulo.contains(TipoModulo.ENTITIES.getEtiquetaModulo())
-                        || modulo.contains(TipoModulo.PLUGIN.getEtiquetaModulo()))
+        List<Modulo> modulosEar = modulos.stream()
+                .filter(modulo -> modulo.getNombre().contains(TipoModulo.NEGOCIO.getEtiquetaModulo())
+                        || modulo.getNombre().contains(TipoModulo.PERSISTENCIA.getEtiquetaModulo())
+                        || modulo.getNombre().contains(TipoModulo.ENTITIES.getEtiquetaModulo())
+                        || modulo.getNombre().contains(TipoModulo.PLUGIN.getEtiquetaModulo()))
                 .collect(Collectors.toList());
-        for (String modulo : modulosEar) {
+        for (Modulo modulo : modulosEar) {
             eliminarDependenciaPorTipoModulo(modulo, TipoModulo.NEGOCIO, directorioRaiz);
         }
-        List<String> modulosWeb = modulos.stream()
-                .filter(modulo -> modulo.contains(TipoModulo.WEB.getEtiquetaModulo()))
+        List<Modulo> modulosWeb = modulos.stream()
+                .filter(modulo -> modulo.getNombre().contains(TipoModulo.WEB.getEtiquetaModulo()))
                 .collect(Collectors.toList());
-        for (String modulo : modulosWeb) {
+        for (Modulo modulo : modulosWeb) {
             eliminarDependenciaPorTipoModulo(modulo, TipoModulo.WEB, directorioRaiz);
         }
-        List<String> modulosPersistence = modulos.stream()
-                .filter(modulo -> modulo.contains(TipoModulo.ENTITIES.getEtiquetaModulo()))
+        List<Modulo> modulosPersistence = modulos.stream()
+                .filter(modulo -> modulo.getNombre().contains(TipoModulo.ENTITIES.getEtiquetaModulo()))
                 .collect(Collectors.toList());
-        for (String modulo : modulosPersistence) {
+        for (Modulo modulo : modulosPersistence) {
             eliminarDependenciaPorTipoModulo(modulo, TipoModulo.ENTITIES, directorioRaiz);
         }
     }
 
-    private void eliminarDependenciaPorTipoModulo(String modulo, TipoModulo tipoModulo, String directorioRaiz) {
+    private void eliminarDependenciaPorTipoModulo(Modulo modulo, TipoModulo tipoModulo, String directorioRaiz) {
         switch (tipoModulo) {
             case NEGOCIO:
                 eliminarDePomEar(modulo, directorioRaiz);
@@ -121,26 +122,26 @@ public class AdministradorModulos {
         }
     }
 
-    private void eliminarDePomRaiz(String modulo, String directorioRaiz) {
+    private void eliminarDePomRaiz(Modulo modulo, String directorioRaiz) {
         File pom = new File(directorioRaiz + "/pom.xml");
-        eliminarModuloArchivo(pom, modulo, "module", 0);
+        eliminarModuloArchivo(pom, modulo.getNombre(), "module", 0);
     }
 
-    private void eliminarDePomEar(String modulo, String directorioRaiz) {
+    private void eliminarDePomEar(Modulo modulo, String directorioRaiz) {
         File pomEar = new File(directorioRaiz + "/dist/ear/pom.xml");
-        String dependenciaEar = modulo.replace("/", "-");
+        String dependenciaEar = modulo.getNombre().replace("/", "-");
         eliminarModuloArchivo(pomEar, dependenciaEar, "artifactId", 1);
     }
 
-    private void eliminarDePomWeb(String modulo, String directorioRaiz) {
+    private void eliminarDePomWeb(Modulo modulo, String directorioRaiz) {
         File pomWeb = new File(directorioRaiz + "/core/web/ui/pom.xml");
-        String dependenciaWeb = modulo.replace("/", "-");
+        String dependenciaWeb = modulo.getNombre().replace("/", "-");
         eliminarModuloArchivo(pomWeb, dependenciaWeb, "artifactId", 1);
     }
 
-    private void eliminarDePersistence(String modulo, String directorioRaiz) {
+    private void eliminarDePersistence(Modulo modulo, String directorioRaiz) {
         File persistence = new File(directorioRaiz + "/core/persistencia/servicio/src/main/resources/META-INF/persistence.xml");
-        String dependenciaPersistence = modulo.replace("/", "-");
+        String dependenciaPersistence = modulo.getNombre().replace("/", "-");
         eliminarModuloArchivo(persistence, dependenciaPersistence, "jar-file", 0);
     }
 
@@ -162,7 +163,7 @@ public class AdministradorModulos {
         }
     }
 
-    private Node buscarNodoPadre(Node nodo, int nivel) {        
+    private Node buscarNodoPadre(Node nodo, int nivel) {
         for (int i = 0; i < nivel; i++) {
             nodo = nodo.getParentNode();
         }
@@ -190,5 +191,4 @@ public class AdministradorModulos {
     }
 
     // </editor-fold>
-    
 }
