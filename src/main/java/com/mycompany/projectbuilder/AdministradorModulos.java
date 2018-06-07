@@ -87,6 +87,7 @@ public class AdministradorModulos {
         }
         List<Modulo> modulosEar = modulos.stream()
                 .filter(modulo -> modulo.getNombre().contains(TipoModulo.NEGOCIO.getEtiquetaModulo())
+                        || modulo.getNombre().contains(TipoModulo.SERVICIO.getEtiquetaModulo())
                         || modulo.getNombre().contains(TipoModulo.PERSISTENCIA.getEtiquetaModulo())
                         || modulo.getNombre().contains(TipoModulo.ENTITIES.getEtiquetaModulo())
                         || modulo.getNombre().contains(TipoModulo.PLUGIN.getEtiquetaModulo()))

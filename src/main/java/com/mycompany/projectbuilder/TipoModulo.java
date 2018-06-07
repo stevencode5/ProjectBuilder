@@ -7,6 +7,7 @@ package com.mycompany.projectbuilder;
 public enum TipoModulo {
 
     NEGOCIO("negocio"),
+    SERVICIO("servicio"),
     PERSISTENCIA("persistencia"),
     ENTITIES("entities"),
     PLUGIN("plugin"),
