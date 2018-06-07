@@ -41,11 +41,8 @@ public class ProjectBuilder implements Serializable {
         this.modulosDual = new DualListModel<>(modulos, new ArrayList<Modulo>());
     }
 
-    public void construirModulos() {
-        System.out.println(this.modulosDual.getTarget());
-        System.out.println(this.modulosDual.getSource());
-        System.out.println(this.modulos);
-        //administradorModulos.construirModulos(this.modulosDual.getTarget(), this.directorioRaiz);
+    public void construirModulos() {        
+        administradorModulos.construirModulos(this.modulosDual.getTarget(), this.directorioRaiz);
         addMessage("Modulos Construidos !!");
     }
 
@@ -55,9 +52,7 @@ public class ProjectBuilder implements Serializable {
     }
 
     public void onTransfer(TransferEvent event) {
-        for (Object item : event.getItems()) {
-            System.out.println(item);
-        }
+        System.out.println("Tranfiriendo !");
     }
 
     public List<Modulo> getModulos() {

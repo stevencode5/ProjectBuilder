@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Project Builder</title>         
@@ -29,11 +30,11 @@
             <p:spacer height="10"/>
             <h:panelGroup id="pnlModulos" layout="block"  styleClass="fl_container_24" >  
                 <h:panelGroup layout="block" styleClass="fl_prefix_2 fl_grid_20 fl_suffix_2">
-                    <p:pickList id="pickList" value="#{projectBuilder.modulos}" var="modulo" itemLabel="#{modulo.nombre}" 
-                                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" 
-                                itemValue="#{modulo}" >
+                    <p:pickList id="pickList" value="#{projectBuilder.modulosDual}" var="modulo" itemValue="#{modulo}" itemLabel="#{modulo.nombre}" 
+                                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >
                         <f:facet name="sourceCaption">Modulos Disponibles</f:facet>
                         <f:facet name="targetCaption">Modulos Eliminados</f:facet>
+                        <o:converter converterId="omnifaces.ListConverter" list="#{projectBuilder.modulos}" />
                         <p:ajax event="transfer" listener="#{projectBuilder.onTransfer}" update="msg" />
                     </p:pickList>
                 </h:panelGroup>

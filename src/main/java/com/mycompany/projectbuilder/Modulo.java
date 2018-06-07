@@ -27,5 +27,10 @@ public class Modulo {
     public void setNodosDependientes(List<Modulo> nodosDependientes) {
         this.nodosDependientes = nodosDependientes;
     }
+    
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
 
 }
