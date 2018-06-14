@@ -60,25 +60,18 @@ public class ProjectBuilder implements Serializable {
 
     private void agregarModulosDependientes(Modulo modulo) {
         administradorModulos.llenarModulosDependientes(modulo, modulos, this.directorioRaiz);
-        imprimirModulo(modulo, 0);
+        agregarModulo(modulo);
     }
-    
-    private void imprimirModulo(Modulo modulo, int nivelIdentacion) {
-        nivelIdentacion++;
-        System.out.println(calcularIdentacion(nivelIdentacion) + " " + modulo.getNombre());
+
+    private void agregarModulo(Modulo modulo) {
+        if (!this.modulosDual.getTarget().contains(modulo)) {
+            this.modulosDual.getTarget().add(modulo);
+        }
         for (Modulo moduloHijo : modulo.getNodosDependientes()) {
-            imprimirModulo(moduloHijo, nivelIdentacion);
+            agregarModulo(moduloHijo);
         }
     }
-    
-    private String calcularIdentacion(int nivelIdentacion) {
-        String identacion = "";
-        for (int i = 0; i < nivelIdentacion; i++) {
-            identacion += "--";
-        }
-        return identacion;
-    }
-    
+        
     public List<Modulo> getModulos() {
         return modulos;
     }
