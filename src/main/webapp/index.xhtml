@@ -35,7 +35,7 @@
                         <f:facet name="sourceCaption">Modulos Disponibles</f:facet>
                         <f:facet name="targetCaption">Modulos Eliminados</f:facet>
                         <o:converter converterId="omnifaces.ListConverter" list="#{projectBuilder.modulos}" />
-                        <p:ajax event="transfer" listener="#{projectBuilder.onTransfer}" update="msg" />
+                        <p:ajax event="transfer" listener="#{projectBuilder.transferirModulos}" update="msg, pickList" />
                     </p:pickList>
                 </h:panelGroup>
             </h:panelGroup>

@@ -51,10 +51,27 @@ public class ProjectBuilder implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public void onTransfer(TransferEvent event) {
-        System.out.println("Tranfiriendo !");
+    public void transferirModulos(TransferEvent event) {
+        List<Modulo> modulosSeleccionados = (List<Modulo>) event.getItems();
+        for (Modulo modulo : modulosSeleccionados) {
+            agregarModulosDependientes(modulo);
+        }
     }
 
+    private void agregarModulosDependientes(Modulo modulo) {
+        administradorModulos.llenarModulosDependientes(modulo, modulos, this.directorioRaiz);
+        agregarModulo(modulo);
+    }
+
+    private void agregarModulo(Modulo modulo) {
+        if (!this.modulosDual.getTarget().contains(modulo)) {
+            this.modulosDual.getTarget().add(modulo);
+        }
+        for (Modulo moduloHijo : modulo.getNodosDependientes()) {
+            agregarModulo(moduloHijo);
+        }
+    }
+        
     public List<Modulo> getModulos() {
         return modulos;
     }

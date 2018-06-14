@@ -15,6 +15,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -33,7 +34,8 @@ public class AdministradorModulos {
     public List<Modulo> cargarModulos(String directorioRaiz) {
         File directorio = new File(directorioRaiz);
         List<String> nodosRaiz = consultarNodosEnPomRaiz(directorio);
-        return crearModulosPorNombre(nodosRaiz);
+        List<Modulo> modulosBase = crearModulosPorNombre(nodosRaiz);
+        return modulosBase;
     }
 
     private List<String> consultarNodosEnPomRaiz(File directorioRaiz) {
@@ -74,11 +76,104 @@ public class AdministradorModulos {
             return null;
         }
     }
-
-    public List<Modulo> consultarNodosDependientes(Modulo modulo) {
-        return null;
+        
+    public void llenarModulosDependientes(Modulo modulo, List<Modulo> modulosBase, String directorioRaiz) {
+        if (!modulo.isDependenciasCalculadas()) {
+            modulo.setDependenciasCalculadas(true);
+            calcularModulosDependientes(modulo, modulosBase, directorioRaiz);
+        }
+    }
+    
+    private void calcularModulosDependientes(Modulo modulo, List<Modulo> modulosBase, String directorioRaiz) {
+        File directorio = new File(directorioRaiz);
+        List<String> modulosDependientes = calcularModulosDenpendientes(modulo, directorio);
+        for (String modulosDependiente : modulosDependientes) {
+            Modulo moduloHijo = consultarModuloPorNombreEnListaBase(modulosDependiente, modulosBase);
+            modulo.agregarModuloDependiente(moduloHijo);
+            llenarModulosDependientes(modulo, modulosBase, directorioRaiz);
+        }
+    }
+    
+    private Modulo consultarModuloPorNombreEnListaBase(String nombreModulo, List<Modulo> modulosBase) {
+        return modulosBase.stream()
+                .filter(modulo -> modulo.getNombre().equals(nombreModulo))
+                .findAny().get();
+    }
+    
+    private List<String> calcularModulosDenpendientes(Modulo modulo, File directorio) {
+        List<String> modulos = calcularDependenciasModuloPorRama(modulo, directorio, "modulos");
+        List<String> core = calcularDependenciasModuloPorRama(modulo, directorio, "core");
+        modulos.addAll(core);
+        return modulos;
+    }
+    
+    private List<String> calcularDependenciasModuloPorRama(Modulo modulo, File directorioRaiz, String rama) {
+        List<String> dependenciasModulo = new ArrayList();
+        File carpetaModulos = new File(directorioRaiz.getPath() + "/" + rama);
+        for (File carpetaModulo : carpetaModulos.listFiles()) {
+            for (File moduloInterno : carpetaModulo.listFiles()) {
+                if (esModuloDependiente(moduloInterno, modulo)) {
+                    dependenciasModulo.add(rama + "/" + moduloInterno.getParentFile().getName() + "/" + moduloInterno.getName());
+                }
+            }
+        }
+        dependenciasModulo.removeIf(dependencia -> dependencia.contains("web-ui")); // Excepciones
+        return dependenciasModulo;
+    }
+    
+    private boolean esModuloDependiente(File moduloInterno, Modulo modulo) {
+        File pom = new File(moduloInterno.getPath() + "/pom.xml");
+        if (pom.exists()) {
+            return esNodoEnPomModulo(pom, modulo);
+        }
+        return false;
     }
 
+    private boolean esNodoEnPomModulo(File pom, Modulo modulo) {
+        List<Element> dependencias = consultarDependencias(pom);
+        for (Element dependencia : dependencias) {
+            String dependenciaPom = dependencia.getElementsByTagName("artifactId").item(0).getTextContent();
+            String nombreModulo = modulo.getNombre();
+            if (compararNombreModulos(dependenciaPom, nombreModulo)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean compararNombreModulos(String nodoPom, String nodoRaiz) {
+        nodoPom = nodoPom.replace("c4u-modulos-", "");
+        nodoPom = eliminarPrimerGuion(nodoPom);
+        nodoRaiz = nodoRaiz.replace("modulos/", "").replace("/", "-");
+        return nodoPom.equals(nodoRaiz);
+    }
+
+    private String eliminarPrimerGuion(String cadena) {
+        String cadenaSinPrimerGuion = cadena.replaceFirst("-", "");
+        if (cadenaSinPrimerGuion.contains("-")) {
+            return cadenaSinPrimerGuion;
+        } else {
+            return cadena;
+        }
+    }
+
+    private List<Element> consultarDependencias(File pom) {
+        List<Element> dependencias = new ArrayList();
+        Document doc = consultarDocumento(pom);
+        NodeList nList = doc.getElementsByTagName("dependency");
+        for (int i = 0; i < nList.getLength(); i++) {
+            Element element = (Element) nList.item(i);
+            dependencias.add(element);
+        }
+        return filtrarNodosModulos(dependencias);
+    }
+
+    private List<Element> filtrarNodosModulos(List<Element> dependencias) {
+        return dependencias.stream()
+                .filter(nodo -> nodo.getElementsByTagName("artifactId").item(0).getTextContent()
+                        .contains("modulos")).collect(Collectors.toList());
+    }
+        
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Métodos para Construir Modulos">
     public void construirModulos(List<Modulo> modulos, String directorioRaiz) {
