@@ -34,8 +34,7 @@ public class AdministradorModulos {
     public List<Modulo> cargarModulos(String directorioRaiz) {
         File directorio = new File(directorioRaiz);
         List<String> nodosRaiz = consultarNodosEnPomRaiz(directorio);
-        List<Modulo> modulosBase = crearModulosPorNombre(nodosRaiz); 
-        llenarDependenciaModulosBase(modulosBase, directorio);
+        List<Modulo> modulosBase = crearModulosPorNombre(nodosRaiz);
         return modulosBase;
     }
 
@@ -78,20 +77,29 @@ public class AdministradorModulos {
         }
     }
         
-    private void llenarDependenciaModulosBase(List<Modulo> modulosBase, File directorio) {
-        for (Modulo modulo : modulosBase) {
-            llenarDependenciaPorModulo(modulo, modulosBase, directorio);
+    public void llenarModulosDependientes(Modulo modulo, List<Modulo> modulosBase, String directorioRaiz) {
+        if (!modulo.isDependenciasCalculadas()) {
+            modulo.setDependenciasCalculadas(true);
+            calcularModulosDependientes(modulo, modulosBase, directorioRaiz);
         }
     }
-
-    private void llenarDependenciaPorModulo(Modulo modulo, List<Modulo> modulosBase, File directorio) {
-        System.out.println("-->"+modulo.getNombre());
+    
+    private void calcularModulosDependientes(Modulo modulo, List<Modulo> modulosBase, String directorioRaiz) {
+        File directorio = new File(directorioRaiz);
         List<String> modulosDependientes = calcularModulosDenpendientes(modulo, directorio);
-        for (String nombreModuloDependiente : modulosDependientes) {
-            System.out.println("-------- "+nombreModuloDependiente);
+        for (String modulosDependiente : modulosDependientes) {
+            Modulo moduloHijo = consultarModuloPorNombreEnListaBase(modulosDependiente, modulosBase);
+            modulo.agregarModuloDependiente(moduloHijo);
+            llenarModulosDependientes(modulo, modulosBase, directorioRaiz);
         }
     }
-
+    
+    private Modulo consultarModuloPorNombreEnListaBase(String nombreModulo, List<Modulo> modulosBase) {
+        return modulosBase.stream()
+                .filter(modulo -> modulo.getNombre().equals(nombreModulo))
+                .findAny().get();
+    }
+    
     private List<String> calcularModulosDenpendientes(Modulo modulo, File directorio) {
         List<String> modulos = calcularDependenciasModuloPorRama(modulo, directorio, "modulos");
         List<String> core = calcularDependenciasModuloPorRama(modulo, directorio, "core");
@@ -105,7 +113,7 @@ public class AdministradorModulos {
         for (File carpetaModulo : carpetaModulos.listFiles()) {
             for (File moduloInterno : carpetaModulo.listFiles()) {
                 if (esModuloDependiente(moduloInterno, modulo)) {
-                    dependenciasModulo.add(moduloInterno.getParentFile().getName() + "-" + moduloInterno.getName());
+                    dependenciasModulo.add(rama + "/" + moduloInterno.getParentFile().getName() + "/" + moduloInterno.getName());
                 }
             }
         }

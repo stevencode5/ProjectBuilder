@@ -52,16 +52,33 @@ public class ProjectBuilder implements Serializable {
     }
 
     public void transferirModulos(TransferEvent event) {
-        for (Modulo modulo : this.modulosDual.getTarget()) {
+        List<Modulo> modulosSeleccionados = (List<Modulo>) event.getItems();
+        for (Modulo modulo : modulosSeleccionados) {
             agregarModulosDependientes(modulo);
         }
     }
 
     private void agregarModulosDependientes(Modulo modulo) {
-        List<Modulo> modulosDependientes = modulo.getNodosDependientes();
-        // TODO ! LO MODULOS SOLO TIENEN EL PRIMER HIJO, NO TIENE CONEXIONES
+        administradorModulos.llenarModulosDependientes(modulo, modulos, this.directorioRaiz);
+        imprimirModulo(modulo, 0);
     }
-
+    
+    private void imprimirModulo(Modulo modulo, int nivelIdentacion) {
+        nivelIdentacion++;
+        System.out.println(calcularIdentacion(nivelIdentacion) + " " + modulo.getNombre());
+        for (Modulo moduloHijo : modulo.getNodosDependientes()) {
+            imprimirModulo(moduloHijo, nivelIdentacion);
+        }
+    }
+    
+    private String calcularIdentacion(int nivelIdentacion) {
+        String identacion = "";
+        for (int i = 0; i < nivelIdentacion; i++) {
+            identacion += "--";
+        }
+        return identacion;
+    }
+    
     public List<Modulo> getModulos() {
         return modulos;
     }
