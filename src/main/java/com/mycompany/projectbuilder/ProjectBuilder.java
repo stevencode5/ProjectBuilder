@@ -51,8 +51,15 @@ public class ProjectBuilder implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public void onTransfer(TransferEvent event) {
-        System.out.println("Tranfiriendo !");
+    public void transferirModulos(TransferEvent event) {
+        for (Modulo modulo : this.modulosDual.getTarget()) {
+            agregarModulosDependientes(modulo);
+        }
+    }
+
+    private void agregarModulosDependientes(Modulo modulo) {
+        List<Modulo> modulosDependientes = modulo.getNodosDependientes();
+        // TODO ! LO MODULOS SOLO TIENEN EL PRIMER HIJO, NO TIENE CONEXIONES
     }
 
     public List<Modulo> getModulos() {
