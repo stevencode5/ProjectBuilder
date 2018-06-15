@@ -143,8 +143,11 @@ public class AdministradorModulos {
 
     private boolean compararNombreModulos(String nodoPom, String nodoRaiz) {
         nodoPom = nodoPom.replace("c4u-modulos-", "");
+        nodoPom = nodoPom.replace("c4u-core-", "");
         nodoPom = eliminarPrimerGuion(nodoPom);
-        nodoRaiz = nodoRaiz.replace("modulos/", "").replace("/", "-");
+        nodoRaiz = nodoRaiz.replace("modulos/", "");
+        nodoRaiz = nodoRaiz.replace("core/", "");
+        nodoRaiz = nodoRaiz.replace("/", "-");
         return nodoPom.equals(nodoRaiz);
     }
 
@@ -165,13 +168,7 @@ public class AdministradorModulos {
             Element element = (Element) nList.item(i);
             dependencias.add(element);
         }
-        return filtrarNodosModulos(dependencias);
-    }
-
-    private List<Element> filtrarNodosModulos(List<Element> dependencias) {
-        return dependencias.stream()
-                .filter(nodo -> nodo.getElementsByTagName("artifactId").item(0).getTextContent()
-                        .contains("modulos")).collect(Collectors.toList());
+        return dependencias;
     }
         
     // </editor-fold>
