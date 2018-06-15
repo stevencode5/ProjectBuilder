@@ -65,6 +65,7 @@ public class ProjectBuilder implements Serializable {
 
     private void agregarModulo(Modulo modulo) {
         if (!this.modulosDual.getTarget().contains(modulo)) {
+            this.modulosDual.getSource().remove(modulo);
             this.modulosDual.getTarget().add(modulo);
         }
         for (Modulo moduloHijo : modulo.getNodosDependientes()) {
