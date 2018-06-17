@@ -1,9 +1,7 @@
 # ProjectBuilder
-Aplicacion web que modifica los diferentes modulos de una aplicacion maven java empresarial con arquitectura modular.
+Web application that modifies the different modules of a maven java business application with modular architecture.
 
-One Paragraph of project description goes here
-
-## Getting Started
+## Empezando
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
@@ -33,9 +31,53 @@ until finished
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
+## Directory Structure
 
 Explain how to run the automated tests for this system
+
+'''Project
+|_core
+	|_auditoria
+		|_entities
+			|_pom.xml
+		|_persistencia
+			|_pom.xml
+		|_plugin
+			|_pom.xml
+		|_servicio
+			|_pom.xml
+		|_tools
+			|_pom.xml
+		|_web
+			|_pom.xml
+	|_persitencia
+		|_servicio
+			|_src
+				|_main
+					|_resources
+						|_META-INF
+							|_persistence.xml
+	|_web
+		|_ui
+			|_pom.xml
+			
+|_dist
+	|_ear
+		|_pom.xml
+	
+|_modulos
+	|_administracion
+		|_entities
+			|_pom.xml
+		|_negocio
+			|_pom.xml
+		|_persistencia
+			|_pom.xml
+		|_plugin
+			|_pom.xml
+		|_web
+			|_pom.xml
+|_pom.xml'''
 
 ### Break down into end to end tests
 
