@@ -117,7 +117,7 @@ public class AdministradorModulos {
                 }
             }
         }
-        dependenciasModulo.removeIf(dependencia -> dependencia.contains("web-ui")); // Excepciones
+        dependenciasModulo.removeIf(dependencia -> dependencia.contains("web/ui")); // Excepciones
         return dependenciasModulo;
     }
     
