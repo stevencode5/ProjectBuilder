@@ -90,7 +90,7 @@ public class AdministradorModulos {
         for (String modulosDependiente : modulosDependientes) {
             Modulo moduloHijo = consultarModuloPorNombreEnListaBase(modulosDependiente, modulosBase);
             modulo.agregarModuloDependiente(moduloHijo);
-            llenarModulosDependientes(modulo, modulosBase, directorioRaiz);
+            llenarModulosDependientes(moduloHijo, modulosBase, directorioRaiz);
         }
     }
     
