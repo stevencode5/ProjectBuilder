@@ -1,15 +1,22 @@
 package com.mycompany.projectbuilder;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import org.primefaces.model.DualListModel;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.TransferEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -41,14 +48,17 @@ public class ProjectBuilder implements Serializable {
         this.modulosDual = new DualListModel<>(modulos, new ArrayList<Modulo>());
     }
 
-    public void construirModulos() {        
+    public void construirModulos() {
         administradorModulos.construirModulos(this.modulosDual.getTarget(), this.directorioRaiz);
+        imprimirModulosAEliminar(this.modulosDual.getTarget());
         addMessage("Modulos Construidos !!");
     }
 
-    public void addMessage(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+    private void imprimirModulosAEliminar(List<Modulo> modulos) {
+        System.out.println("Modulos a Eliminar !!");
+        for (Modulo modulo : modulos) {
+            System.out.println(modulo.getNombre());
+        }
     }
 
     public void transferirModulos(TransferEvent event) {
@@ -89,7 +99,30 @@ public class ProjectBuilder implements Serializable {
             agregarModulo(moduloHijo);
         }
     }
-        
+    
+    public void cargarArchivo(FileUploadEvent event) {
+        List<String> dependencias = calcularLineasArchivo(event.getFile());
+        List<Modulo> modulosCargados = administradorModulos.crearModulosPorNombre(dependencias);
+        administradorModulos.construirModulos(modulosCargados, this.directorioRaiz);
+        addMessage("Modulos por archivo cargados Exitosamente !!");
+    }
+    
+    private List<String> calcularLineasArchivo(UploadedFile archivoCargado) {
+        try {
+            InputStream input = archivoCargado.getInputstream();
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(input));
+            return buffer.lines().collect(Collectors.toList());
+        } catch (IOException e) {
+            System.out.println("Se presento un error leyendo archivo");
+            return new ArrayList();
+        }
+    }
+    
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }    
+    
     public List<Modulo> getModulos() {
         return modulos;
     }

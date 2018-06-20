@@ -46,7 +46,7 @@ public class AdministradorModulos {
         return new ArrayList();
     }
 
-    private List<Modulo> crearModulosPorNombre(List<String> nombresModulos) {
+    public List<Modulo> crearModulosPorNombre(List<String> nombresModulos) {
         List<Modulo> modulosPorNombre = new ArrayList();
         for (String nombreModulo : nombresModulos) {
             modulosPorNombre.add(new Modulo(nombreModulo));
