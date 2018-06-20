@@ -45,6 +45,11 @@
                     <p:commandButton value="Construir !" id="btonConstruir" actionListener="#{projectBuilder.construirModulos}" update="msg" styleClass="ui-priority-primary" />
                 </h:panelGroup>
             </h:panelGroup>
+            
+            <h:panelGroup layout="block" styleClass="fl_clear"/>
+            <p:spacer height="10"/>
+            <p:fileUpload fileUploadListener="#{projectBuilder.cargarArchivo}" mode="advanced" update="msg" auto="true" sizeLimit="100000"  />
+
         </h:form>
     </h:body>
 </html>
