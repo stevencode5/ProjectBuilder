@@ -1,7 +1,10 @@
 package com.mycompany.projectbuilder;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -284,4 +287,16 @@ public class AdministradorModulos {
     }
 
     // </editor-fold>
+    
+    public void cargarArchivo(InputStream archivoCargado, String directorioRaiz) {
+        List<String> dependencias = calcularLineasArchivo(archivoCargado);
+        List<Modulo> modulosCargados = crearModulosPorNombre(dependencias);
+        construirModulos(modulosCargados, directorioRaiz);
+    }
+
+    private List<String> calcularLineasArchivo(InputStream archivoCargado) {        
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(archivoCargado));
+        return buffer.lines().collect(Collectors.toList());
+    }
+
 }
