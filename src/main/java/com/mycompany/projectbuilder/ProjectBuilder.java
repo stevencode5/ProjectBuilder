@@ -99,22 +99,19 @@ public class ProjectBuilder implements Serializable {
             agregarModulo(moduloHijo);
         }
     }
-    
+
     public void cargarArchivo(FileUploadEvent event) {
-        List<String> dependencias = calcularLineasArchivo(event.getFile());
-        List<Modulo> modulosCargados = administradorModulos.crearModulosPorNombre(dependencias);
-        administradorModulos.construirModulos(modulosCargados, this.directorioRaiz);
+        InputStream archivo = leerArchivo(event.getFile());
+        administradorModulos.cargarArchivo(archivo, this.directorioRaiz);
         addMessage("Modulos por archivo cargados Exitosamente !!");
     }
-    
-    private List<String> calcularLineasArchivo(UploadedFile archivoCargado) {
+
+    private InputStream leerArchivo(UploadedFile archivoCargado) {
         try {
-            InputStream input = archivoCargado.getInputstream();
-            BufferedReader buffer = new BufferedReader(new InputStreamReader(input));
-            return buffer.lines().collect(Collectors.toList());
+            return archivoCargado.getInputstream();
         } catch (IOException e) {
             System.out.println("Se presento un error leyendo archivo");
-            return new ArrayList();
+            return null;
         }
     }
     
